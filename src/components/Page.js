@@ -1,6 +1,8 @@
 import React from 'react'
 import $ from 'jquery'
 
+// const SERVER_URL = 'https://18.221.133.190:4567';
+const SERVER_URL = 'http://localhost:4567';
 class Page extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +32,7 @@ class Page extends React.Component {
     const getMangaFile = () => {
       document.getElementById("progress").style.display = "block";
       let http = new XMLHttpRequest();
-      const url = 'https://18.221.133.190:4567/progress';
+      const url = `${SERVER_URL}/progress`;
       http.open("GET", url);
       http.onload = function(e) {
         if (http.status === 200 && http.readyState === 4) {
@@ -40,7 +42,7 @@ class Page extends React.Component {
             setTimeout(getMangaFile, 2000);
           } else {
             http = new XMLHttpRequest();
-            const url = 'https://18.221.133.190:4567/manga';
+            const url = `${SERVER_URL}/manga`;
             http.open("GET", url);
             http.responseType = 'arraybuffer'
             http.onload = function(e) {
@@ -66,7 +68,7 @@ class Page extends React.Component {
     const arg1 = document.getElementById(`${title}_start`).value;
     const arg2 = document.getElementById(`${title}_end`).value;
     const http = new XMLHttpRequest();
-    const url = `https://18.221.133.190:4567/manga?url=${encodeURI(manga_url)}&arg1=${encodeURI(arg1)}&arg2=${encodeURI(arg2)}&name=${encodeURI(title)}`;
+    const url = `${SERVER_URL}/manga?url=${encodeURI(manga_url)}&arg1=${encodeURI(arg1)}&arg2=${encodeURI(arg2)}&name=${encodeURI(title)}`;
     http.open("POST", url);
     http.onload = function(e) {
       if (http.status === 200 && http.readyState === 4) {
@@ -117,7 +119,7 @@ class Page extends React.Component {
       let searchTerm = document.getElementById('input').value;
       console.log('searching for ' + searchTerm);
       const http = new XMLHttpRequest();
-      const url = `https://18.221.133.190:4567/manga-names/${encodeURI(searchTerm)}`;
+      const url = `${SERVER_URL}/manga-names/${encodeURI(searchTerm)}`;
       http.open("GET", url);
       http.onload = function(e) {
         if (http.status === 200 && http.readyState === 4) {
